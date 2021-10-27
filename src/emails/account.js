@@ -29,7 +29,6 @@ const sendWelcomeEmail = (email, name) => {
     if (error) {
       console.log(error);
     }
-    console.log(body);
   });
 };
 
@@ -46,7 +45,6 @@ const sendCancelationEmail = (email, name) => {
     if (error) {
       console.log(error);
     }
-    console.log(body);
   });
 };
 
