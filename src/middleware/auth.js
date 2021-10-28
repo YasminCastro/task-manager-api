@@ -5,7 +5,9 @@ const User = require("../models/user");
 const auth = async (req, res, next) => {
   try {
     //looking for the header that the user is supost to provide
-    const token = req.header("Authorization").replace("Bearer ", "");
+    //const token = req.header("Authorization").replace("Bearer ", "");
+
+    const token = req.cookies["auth_token"];
     //validating header
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     //finding associted user

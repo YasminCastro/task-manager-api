@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
 const sharp = require("sharp");
+const path = require("path");
 
 const User = require("../models/user");
 const auth = require("../middleware/auth");
@@ -19,7 +20,11 @@ router.post("/users", async (req, res) => {
     sendWelcomeEmail(user.email, user.name);
 
     const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+
+    res.cookie("auth_token", token);
+    res.sendFile(path.resolve(__dirname, "..", "views", "private.html"));
+
+    // res.status(201).send({ user, token });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -34,7 +39,11 @@ router.post("/users/login", async (req, res) => {
     );
 
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+
+    res.cookie("auth_token", token);
+    res.sendFile(path.resolve(__dirname, "..", "views", "private.html"));
+
+    // res.send({ user, token });
   } catch (error) {
     res.status(400).send(error);
   }
